@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="50%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="terminal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1e32"/>
+      <stop offset="100%" style="stop-color:#141428"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="50%" style="stop-color:#ff6b6b"/>
+      <stop offset="100%" style="stop-color:#e94560"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" fill="url(#bg)"/>
+
+  <!-- Decorative grid lines -->
+  <g stroke="#ffffff08" stroke-width="1">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="800" y1="0" x2="800" y2="400"/>
+    <line x1="1000" y1="0" x2="1000" y2="400"/>
+  </g>
+
+  <!-- Terminal window -->
+  <rect x="60" y="60" width="480" height="280" rx="12" fill="url(#terminal)" stroke="#333" stroke-width="2"/>
+
+  <!-- Terminal header -->
+  <rect x="60" y="60" width="480" height="32" rx="12" fill="#2a2a3e"/>
+  <rect x="60" y="80" width="480" height="12" fill="#2a2a3e"/>
+
+  <!-- Window buttons -->
+  <circle cx="84" cy="76" r="6" fill="#ff5f57"/>
+  <circle cx="104" cy="76" r="6" fill="#febc2e"/>
+  <circle cx="124" cy="76" r="6" fill="#28c840"/>
+
+  <!-- Terminal title -->
+  <text x="300" y="81" font-family="SF Mono, Monaco, Consolas, monospace" font-size="13" fill="#888" text-anchor="middle">macos-tools</text>
+
+  <!-- Terminal content -->
+  <text x="80" y="130" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#e94560" font-weight="bold">$</text>
+  <text x="100" y="130" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#a0a0c0">mac-notes search "ideas"</text>
+
+  <text x="80" y="160" font-family="SF Mono, Monaco, Consolas, monospace" font-size="14" fill="#6a6a8a">Found 3 notes (14ms)</text>
+
+  <text x="80" y="195" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#e94560" font-weight="bold">$</text>
+  <text x="100" y="195" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#a0a0c0">mac-mail unread</text>
+
+  <text x="80" y="225" font-family="SF Mono, Monaco, Consolas, monospace" font-size="14" fill="#6a6a8a">5 unread emails (22ms)</text>
+
+  <text x="80" y="260" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#e94560" font-weight="bold">$</text>
+  <text x="100" y="260" font-family="SF Mono, Monaco, Consolas, monospace" font-size="16" fill="#a0a0c0">mac-messages list</text>
+
+  <text x="80" y="290" font-family="SF Mono, Monaco, Consolas, monospace" font-size="14" fill="#6a6a8a">12 conversations (17ms)</text>
+
+  <!-- Cursor -->
+  <rect x="80" y="310" width="10" height="18" fill="#e94560">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Right side: Title and icons -->
+  <text x="780" y="140" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif" font-size="56" fill="white" font-weight="700" text-anchor="middle">macos-tools</text>
+
+  <text x="780" y="180" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" fill="#8888aa" text-anchor="middle">Fast CLI for macOS Notes, Mail, Messages</text>
+
+  <!-- App icons row -->
+  <g transform="translate(580, 220)">
+    <!-- Notes icon -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#ffcc00"/>
+    <text x="28" y="40" font-size="28" text-anchor="middle">&#128221;</text>
+  </g>
+
+  <g transform="translate(660, 220)">
+    <!-- Mail icon -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#007aff"/>
+    <text x="28" y="40" font-size="28" text-anchor="middle">&#9993;</text>
+  </g>
+
+  <g transform="translate(740, 220)">
+    <!-- Messages icon -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#34c759"/>
+    <text x="28" y="40" font-size="28" text-anchor="middle">&#128172;</text>
+  </g>
+
+  <g transform="translate(820, 220)">
+    <!-- Calendar icon -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#ff3b30"/>
+    <text x="28" y="40" font-size="28" text-anchor="middle">&#128197;</text>
+  </g>
+
+  <g transform="translate(900, 220)">
+    <!-- Contacts icon -->
+    <rect x="0" y="0" width="56" height="56" rx="12" fill="#ff9500"/>
+    <text x="28" y="40" font-size="28" text-anchor="middle">&#128100;</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="780" y="320" font-family="SF Pro Display, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" fill="#e94560" text-anchor="middle" font-weight="500">1000x faster than AppleScript</text>
+
+  <!-- Bottom badges area hint -->
+  <text x="780" y="360" font-family="SF Mono, Monaco, Consolas, monospace" font-size="14" fill="#555" text-anchor="middle">brew install hamedmp/tap/macos-tools</text>
+</svg>
