@@ -1,0 +1,27 @@
+{
+  "name": "macos-tools",
+  "owner": {
+    "name": "Hamed Mohammadpour",
+    "email": "hamed@finna.ai"
+  },
+  "metadata": {
+    "description": "Fast CLI tools for macOS - Notes, Mail, Messages, Calendar with productivity commands",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "mac",
+      "source": "./",
+      "description": "Fast CLI tools for macOS - Notes, Mail, Messages, Calendar, daily briefings and productivity commands",
+      "version": "1.2.0",
+      "author": {
+        "name": "Hamed Mohammadpour"
+      },
+      "homepage": "https://github.com/HamedMP/macos-tools",
+      "repository": "https://github.com/HamedMP/macos-tools",
+      "license": "MIT",
+      "keywords": ["macos", "apple", "calendar", "mail", "messages", "notes", "productivity"],
+      "category": "productivity"
+    }
+  ]
+}

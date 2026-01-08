@@ -92,10 +92,18 @@ mac-music play/pause/next      # Control playback
 
 ## Claude Code Plugin
 
-Install the plugin to use `/mac:*` commands in Claude Code:
+Install the plugin to use `/mac:*` commands in Claude Code.
 
+**Option 1: Via `/plugin` command (recommended)**
+```
+/plugin marketplace add hamedmp/macos-tools
+/plugin install mac@macos-tools
+```
+
+**Option 2: Via CLI**
 ```bash
-claude plugin install mac@hamedmp/macos-tools
+claude plugin marketplace add hamedmp/macos-tools
+claude plugin install mac@macos-tools
 ```
 
 ### Basic Commands
