@@ -647,7 +647,16 @@ class TUIApp {
     private func saveToNotes() {
         showStatus("Saving to Notes...")
 
-        let title = document.title ?? "Canvas - \(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .short))"
+        // Get title - ensure it's not empty and sanitize it
+        var title = document.title ?? ""
+        if title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            title = "Canvas - \(formatter.string(from: Date()))"
+        }
+        // Remove any newlines from title
+        title = title.components(separatedBy: .newlines).first ?? title
+
         let content = document.rawMarkdown.isEmpty ? "Empty canvas" : document.rawMarkdown
 
         // Find mac-notes in PATH or common locations
@@ -670,7 +679,7 @@ class TUIApp {
             return
         }
 
-        // Write content to temp file to avoid command-line escaping issues
+        // Write content to temp file
         let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("canvas-note-\(UUID().uuidString).md")
         do {
             try content.write(to: tempFile, atomically: true, encoding: .utf8)
@@ -683,10 +692,20 @@ class TUIApp {
             try? FileManager.default.removeItem(at: tempFile)
         }
 
-        // Read content from file using shell
+        // Use shell to properly handle the content
+        let shellCommand = """
+        '\(notesPath)' create '\(title.replacingOccurrences(of: "'", with: "'\\''"))' --body "$(cat '\(tempFile.path)')"
+        """
+
         let task = Process()
         task.executableURL = URL(fileURLWithPath: "/bin/bash")
-        task.arguments = ["-c", "\(notesPath) create '\(title.replacingOccurrences(of: "'", with: "'\\''"))' --body \"$(cat '\(tempFile.path)')\""]
+        task.arguments = ["-c", shellCommand]
+
+        // Capture stderr for debugging
+        let stderrPipe = Pipe()
+        let stdoutPipe = Pipe()
+        task.standardError = stderrPipe
+        task.standardOutput = stdoutPipe
 
         do {
             try task.run()
@@ -695,7 +714,24 @@ class TUIApp {
             if task.terminationStatus == 0 {
                 showStatus("Saved to Notes: \(title)")
             } else {
-                showStatus("Failed to save to Notes (exit: \(task.terminationStatus))")
+                // Read stderr for error details
+                let stderrData = stderrPipe.fileHandleForReading.readDataToEndOfFile()
+                let stderrStr = String(data: stderrData, encoding: .utf8) ?? "unknown error"
+
+                // Log to file for debugging
+                let logPath = "/tmp/canvas-notes-error.log"
+                let logContent = """
+                === \(Date()) ===
+                Exit code: \(task.terminationStatus)
+                Title: \(title)
+                Shell command: \(shellCommand)
+                Temp file: \(tempFile.path)
+                Stderr: \(stderrStr)
+
+                """
+                try? logContent.write(toFile: logPath, atomically: true, encoding: .utf8)
+
+                showStatus("Failed (exit:\(task.terminationStatus)) - see /tmp/canvas-notes-error.log")
             }
         } catch {
             showStatus("Error: \(error.localizedDescription)")
