@@ -33,5 +33,4 @@ Report status of each tool:
 - mac-contacts: installed/missing
 - mac-focus: installed/missing
 - mac-music: installed/missing
-- mac-reminders: installed/missing
 - idag (calendar): installed/missing

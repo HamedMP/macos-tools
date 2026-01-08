@@ -8,7 +8,6 @@ let package = Package(
         .macOS(.v13)
     ],
     products: [
-        .executable(name: "mac-reminders", targets: ["Reminders"]),
         .executable(name: "mac-notes", targets: ["Notes"]),
         .executable(name: "mac-messages", targets: ["Messages"]),
         .executable(name: "mac-mail", targets: ["Mail"]),
@@ -21,15 +20,6 @@ let package = Package(
         .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.15.0"),
     ],
     targets: [
-        .executableTarget(
-            name: "Reminders",
-            linkerSettings: [
-                .unsafeFlags([
-                    "-sectcreate", "__TEXT", "__info_plist",
-                    "Sources/Reminders/Resources/Info.plist"
-                ])
-            ]
-        ),
         .executableTarget(
             name: "Notes",
             dependencies: [

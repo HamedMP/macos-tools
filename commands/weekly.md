@@ -18,9 +18,6 @@ mac-mail list --limit 50
 
 # Recent messages
 mac-messages list --limit 30
-
-# All pending reminders
-mac-reminders list
 ```
 
 ## Output Format
@@ -37,9 +34,6 @@ mac-reminders list
 ### Communication Summary
 - **Emails**: [X] received, [Y] unread
 - **Messages**: Active conversations with [list of contacts]
-
-### Pending Tasks
-[From reminders]
 
 ### Weekly Action Items
 - [ ] [Items that should be addressed this week]

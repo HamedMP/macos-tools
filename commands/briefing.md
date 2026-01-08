@@ -16,7 +16,6 @@ Gather recent/unread data from all sources:
 - Unread emails (since yesterday)
 - Today's and tomorrow's calendar events
 - Recent messages (last 24 hours)
-- Pending reminders
 
 ### With Query (e.g., `/mac:briefing receipts`)
 Search ALL sources for the topic, regardless of date:
@@ -36,7 +35,6 @@ Search ALL sources for the topic, regardless of date:
 idag                           # Today's calendar
 mac-mail unread --limit 15     # Unread emails
 mac-messages list --limit 10   # Recent messages
-mac-reminders list             # Pending reminders
 ```
 
 **Query mode** (e.g., query = "receipts"):

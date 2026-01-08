@@ -48,8 +48,8 @@ SQLite-based CLI tools that directly query macOS app databases, providing:
 | `mac-mail attachments [--limit N]` | Emails with attachments |
 | `mac-mail send --to <email> --subject "..." --body "..."` | Send email |
 
-#### mac-contacts, mac-focus, mac-music, mac-reminders
-Existing tools for contacts, focus mode, music control, and reminders.
+#### mac-contacts, mac-focus, mac-music
+Existing tools for contacts, focus mode, and music control.
 
 ### Claude Code Plugin Commands
 
@@ -82,7 +82,6 @@ Existing tools for contacts, focus mode, music control, and reminders.
 - Unread emails (since yesterday)
 - Upcoming calendar events (today + tomorrow)
 - Recent messages (last 24h)
-- Pending reminders
 
 **Custom focus with query:**
 ```
@@ -111,7 +110,6 @@ Prompts user to select which sources to include in productivity commands:
 - [ ] Mail (unread emails)
 - [ ] Messages (recent conversations)
 - [ ] Notes (recent notes)
-- [ ] Reminders (pending tasks)
 
 Configuration stored in `~/.claude/mac-config.json`:
 ```json

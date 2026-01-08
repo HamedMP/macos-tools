@@ -66,7 +66,7 @@
 
 ### 3.3 Configuration System
 Store user preferences in `~/.claude/mac-config.json`:
-- Which sources to include (calendar, mail, messages, notes, reminders)
+- Which sources to include (calendar, mail, messages, notes)
 - Limits for each source (how many items to show)
 - Briefing preferences (generate todos, summary style)
 
@@ -89,7 +89,6 @@ Store user preferences in `~/.claude/mac-config.json`:
 /mac:contacts
 /mac:focus
 /mac:music
-/mac:reminders
 
 # Productivity (uses configured sources)
 /mac:daily          # Today's overview

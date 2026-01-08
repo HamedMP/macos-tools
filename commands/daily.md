@@ -39,11 +39,6 @@ mac-messages list --limit <limit>
 mac-notes list --limit <limit>
 ```
 
-**Reminders** (if enabled):
-```bash
-mac-reminders list
-```
-
 3. Present the raw data in organized sections:
 
 ```

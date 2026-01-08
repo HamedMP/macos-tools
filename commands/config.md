@@ -16,7 +16,6 @@ This command configures which data sources to include in /mac:daily and /mac:bri
    - Mail (unread emails via mac-mail)
    - Messages (recent conversations via mac-messages)
    - Notes (recent notes via mac-notes)
-   - Reminders (pending tasks via mac-reminders)
 
 4. Ask for limits:
    - How many emails to include? (default: 10)

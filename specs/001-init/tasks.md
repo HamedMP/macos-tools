@@ -52,7 +52,6 @@
 | mac-contacts | search | ✅ Pass | - |
 | mac-focus | status | ✅ Pass | - |
 | mac-music | now | ✅ Pass | - |
-| mac-reminders | list | ⚠️ Needs permission | Requires Reminders access |
 
 ## Pending Tasks
 
@@ -75,14 +74,14 @@
 - [ ] Create /mac:mail:from command
 
 ### Claude Code Plugin - Configuration
-- [ ] Create /mac:config command (select sources: calendar, mail, messages, notes, reminders)
+- [ ] Create /mac:config command (select sources: calendar, mail, messages, notes)
 - [ ] Store config in ~/.claude/mac-config.json
 - [ ] Add default configuration on first run
 
 ### Claude Code Plugin - Productivity Commands
 - [ ] Create /mac:daily command (raw data from configured sources)
 - [ ] Create /mac:briefing command with optional query focus
-  - Default: unread emails, upcoming events, recent messages, pending reminders
+  - Default: unread emails, upcoming events, recent messages
   - With query: filter all sources by topic (e.g., "receipts", "project alpha")
   - Output: summary, action items, deadlines, follow-ups, priorities
 - [ ] Create /mac:weekly command (week overview with insights)
