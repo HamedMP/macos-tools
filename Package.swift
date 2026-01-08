@@ -21,7 +21,15 @@ let package = Package(
         .package(url: "https://github.com/stephencelis/SQLite.swift", from: "0.15.0"),
     ],
     targets: [
-        .executableTarget(name: "Reminders"),
+        .executableTarget(
+            name: "Reminders",
+            linkerSettings: [
+                .unsafeFlags([
+                    "-sectcreate", "__TEXT", "__info_plist",
+                    "Sources/Reminders/Resources/Info.plist"
+                ])
+            ]
+        ),
         .executableTarget(
             name: "Notes",
             dependencies: [

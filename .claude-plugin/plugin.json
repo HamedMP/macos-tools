@@ -1,7 +1,7 @@
 {
   "name": "mac",
-  "description": "macOS system integrations for Claude Code - calendar, reminders, notes, contacts, music, and more",
-  "version": "1.0.0",
+  "description": "macOS productivity tools - calendar, mail, messages, notes, daily briefings, and more",
+  "version": "1.1.0",
   "author": {
     "name": "Hamed Mohammadpour",
     "url": "https://github.com/hamedmp"

@@ -28,12 +28,31 @@
 - [x] Push to GitHub (HamedMP/macos-tools)
 - [x] Create GitHub release with release notes
 
-## In Progress
+## Completed
 
 ### Homebrew Formula Update
-- [ ] Get SHA256 of v1.1.0 tarball
-- [ ] Update hamedmp/homebrew-tap/Formula/macos-tools.rb
-- [ ] Test: `brew upgrade hamedmp/tap/macos-tools`
+- [x] Get SHA256 of v1.1.0 tarball (d6ace8612c0719dddef162e41614e941046fdae1a18dcb238bfd6ad005ca4ae7)
+- [x] Update hamedmp/homebrew-tap/Formula/macos-tools.rb
+- [x] Test: `brew upgrade hamedmp/tap/macos-tools`
+
+### CLI Testing (2026-01-08)
+
+| Tool | Command | Status | Performance |
+|------|---------|--------|-------------|
+| mac-notes | list | ✅ Pass | 13ms |
+| mac-notes | search | ✅ Pass | 13ms |
+| mac-messages | list | ✅ Pass | 17ms |
+| mac-messages | search | ✅ Pass | 17ms |
+| mac-messages | history | ✅ Pass | - |
+| mac-mail | list | ✅ Pass | 46ms |
+| mac-mail | search | ✅ Pass | 46ms |
+| mac-mail | unread | ✅ Pass | - |
+| mac-mail | attachments | ✅ Pass | - |
+| mac-contacts | list | ✅ Pass | - |
+| mac-contacts | search | ✅ Pass | - |
+| mac-focus | status | ✅ Pass | - |
+| mac-music | now | ✅ Pass | - |
+| mac-reminders | list | ⚠️ Needs permission | Requires Reminders access |
 
 ## Pending Tasks
 
@@ -44,7 +63,8 @@
 - [ ] Update README.md with new commands
 - [ ] Add CHANGELOG.md
 
-### Claude Code Plugin - Basic Commands
+### Claude Code Plugin - Setup & Basic Commands
+- [ ] Create /mac:setup command (checks tools, shows brew install)
 - [ ] Create /mac:calendar command (uses idag)
 - [ ] Create /mac:notes command
 - [ ] Create /mac:notes:search command
@@ -54,13 +74,20 @@
 - [ ] Create /mac:mail:unread command
 - [ ] Create /mac:mail:from command
 
+### Claude Code Plugin - Configuration
+- [ ] Create /mac:config command (select sources: calendar, mail, messages, notes, reminders)
+- [ ] Store config in ~/.claude/mac-config.json
+- [ ] Add default configuration on first run
+
 ### Claude Code Plugin - Productivity Commands
-- [ ] Create /mac:daily command (overview)
-- [ ] Create /mac:briefing command (AI summary)
-- [ ] Create /mac:weekly command
-- [ ] Create /mac:todo:view command
-- [ ] Create /mac:todo:add command
-- [ ] Create /mac:todo:generate command
+- [ ] Create /mac:daily command (raw data from configured sources)
+- [ ] Create /mac:briefing command with optional query focus
+  - Default: unread emails, upcoming events, recent messages, pending reminders
+  - With query: filter all sources by topic (e.g., "receipts", "project alpha")
+  - Output: summary, action items, deadlines, follow-ups, priorities
+- [ ] Create /mac:weekly command (week overview with insights)
+- [ ] Create /mac:todo:view command (read todos from Notes)
+- [ ] Create /mac:todo:add command (add todo to Notes via AppleScript)
 
 ## Backlog
 

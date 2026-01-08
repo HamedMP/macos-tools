@@ -53,9 +53,10 @@ Existing tools for contacts, focus mode, music control, and reminders.
 
 ### Claude Code Plugin Commands
 
-#### Basic Commands
+#### Setup & Basic Commands
 | Command | Description |
 |---------|-------------|
+| `/mac:setup` | Check if CLI tools installed, show brew install |
 | `/mac:calendar` | Today's calendar events |
 | `/mac:notes` | Recent notes |
 | `/mac:notes search` | Search notes |
@@ -66,12 +67,68 @@ Existing tools for contacts, focus mode, music control, and reminders.
 #### Integrated Productivity Commands
 | Command | Description |
 |---------|-------------|
-| `/mac:daily` | Today's overview (calendar + emails + messages) |
-| `/mac:briefing` | Morning briefing with AI summary |
+| `/mac:daily` | Today's raw data (configurable sources) |
+| `/mac:briefing [query]` | AI-generated summary with optional focus |
 | `/mac:weekly` | Week overview with insights |
 | `/mac:todo:view` | View todo items from Notes |
 | `/mac:todo:add` | Add todo to Notes |
-| `/mac:todo:generate` | Generate todos from calendar/emails |
+| `/mac:config` | Configure which sources to include |
+
+#### Briefing Command Details
+
+`/mac:briefing` generates an AI summary of your day.
+
+**Default behavior:**
+- Unread emails (since yesterday)
+- Upcoming calendar events (today + tomorrow)
+- Recent messages (last 24h)
+- Pending reminders
+
+**Custom focus with query:**
+```
+/mac:briefing receipts        # Focus on emails about receipts
+/mac:briefing "project alpha" # Everything related to project alpha
+/mac:briefing meetings        # Focus on meeting-related items
+```
+
+**Output includes:**
+- Executive summary (2-3 sentences)
+- Key action items
+- Important deadlines
+- People to follow up with
+- Suggested priorities
+
+#### Productivity Command Configuration
+
+Users configure sources once via `/mac:config`:
+
+```
+/mac:config
+```
+
+Prompts user to select which sources to include in productivity commands:
+- [ ] Calendar (today's events)
+- [ ] Mail (unread emails)
+- [ ] Messages (recent conversations)
+- [ ] Notes (recent notes)
+- [ ] Reminders (pending tasks)
+
+Configuration stored in `~/.claude/mac-config.json`:
+```json
+{
+  "daily": {
+    "sources": ["calendar", "mail", "messages"],
+    "mailLimit": 10,
+    "messagesLimit": 5
+  },
+  "briefing": {
+    "sources": ["calendar", "mail"],
+    "generateTodos": true
+  }
+}
+```
+
+Default configuration includes: calendar, mail, messages.
 
 ## Non-Functional Requirements
 

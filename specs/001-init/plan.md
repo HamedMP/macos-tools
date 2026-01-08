@@ -44,7 +44,8 @@
 
 ## Phase 3: Claude Code Plugin (PLANNED)
 
-### 3.1 Basic Commands
+### 3.1 Setup & Basic Commands
+- [ ] `/mac:setup` - Check if tools installed, show brew install command
 - [ ] `/mac:calendar` - Show today's events
 - [ ] `/mac:notes` - List recent notes
 - [ ] `/mac:notes search <query>` - Search notes
@@ -54,15 +55,29 @@
 - [ ] `/mac:mail:unread` - Unread emails
 
 ### 3.2 Integrated Productivity Commands
-- [ ] `/mac:daily` - Daily overview combining calendar, emails, messages
-- [ ] `/mac:briefing` - AI-generated morning briefing
+- [ ] `/mac:config` - Configure sources for productivity commands (one-time setup)
+- [ ] `/mac:daily` - Raw data overview from configured sources
+- [ ] `/mac:briefing [query]` - AI-generated summary (default: unread mail, upcoming events)
+  - Optional query to focus on specific topic (e.g., "receipts", "project alpha")
+  - Output: executive summary, action items, deadlines, follow-ups, priorities
 - [ ] `/mac:weekly` - Week overview with insights
 - [ ] `/mac:todo:view` - View todos from Notes
 - [ ] `/mac:todo:add <text>` - Add todo to Notes
-- [ ] `/mac:todo:generate` - Generate todos from calendar/emails
 
-### 3.3 Command Structure
+### 3.3 Configuration System
+Store user preferences in `~/.claude/mac-config.json`:
+- Which sources to include (calendar, mail, messages, notes, reminders)
+- Limits for each source (how many items to show)
+- Briefing preferences (generate todos, summary style)
+
+### 3.4 Command Structure
 ```
+# Setup
+/mac:setup          # Check tools installed
+/mac:config         # Configure sources (one-time)
+
+# Individual Tools
+/mac:calendar
 /mac:notes
 /mac:notes:search
 /mac:messages
@@ -71,12 +86,20 @@
 /mac:mail
 /mac:mail:unread
 /mac:mail:from
+/mac:contacts
+/mac:focus
+/mac:music
+/mac:reminders
+
+# Productivity (uses configured sources)
+/mac:daily          # Today's overview
+/mac:briefing       # AI summary + action items
+/mac:weekly         # Week overview
+
+# Todo Management
 /mac:todo:view
 /mac:todo:add
 /mac:todo:generate
-/mac:daily
-/mac:briefing
-/mac:weekly
 ```
 
 ## Phase 4: Future Enhancements (BACKLOG)
