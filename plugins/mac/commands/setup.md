@@ -6,15 +6,16 @@ allowed-tools: Bash
 Check if the macos-tools CLI binaries are installed by running these commands:
 
 ```bash
-which mac-notes && which mac-messages && which mac-mail && which mac-contacts && which idag
+which mac-notes && which mac-messages && which mac-mail && which mac-contacts && which mac-calendar
 ```
 
 If any are missing, show the user the installation command:
 
 ```
 brew install hamedmp/tap/macos-tools
-brew install hamedmp/tap/idag
 ```
+
+This installs all tools including mac-calendar.
 
 Also check if Full Disk Access is granted (required for Messages and Mail):
 - Messages database: `~/Library/Messages/chat.db`
@@ -33,4 +34,4 @@ Report status of each tool:
 - mac-contacts: installed/missing
 - mac-focus: installed/missing
 - mac-music: installed/missing
-- idag (calendar): installed/missing
+- mac-calendar (calendar): installed/missing

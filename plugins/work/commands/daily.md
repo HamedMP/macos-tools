@@ -1,9 +1,15 @@
 ---
 description: Show today's overview from configured sources (calendar, mail, messages, notes)
-allowed-tools: Bash, Read
+arguments:
+  - name: --no-canvas
+    description: Disable auto canvas output
+    required: false
+allowed-tools: Bash, Read, Write
 ---
 
 Show a daily overview combining data from multiple macOS sources.
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
 ## Steps
 
@@ -17,26 +23,16 @@ Default config:
 }
 ```
 
-2. For each configured source, run the appropriate command:
+2. **Run ALL commands IN PARALLEL** (single message, multiple Bash calls):
 
-**Calendar** (if enabled):
 ```bash
-idag
+mac-calendar
 ```
-
-**Mail** (if enabled):
 ```bash
-mac-mail unread --limit <limit>
+mac-mail unread --limit 10
 ```
-
-**Messages** (if enabled):
 ```bash
-mac-messages list --limit <limit>
-```
-
-**Notes** (if enabled):
-```bash
-mac-notes list --limit <limit>
+mac-messages list --limit 5
 ```
 
 3. Present the raw data in organized sections:
@@ -45,13 +41,27 @@ mac-notes list --limit <limit>
 ## Daily Overview - January 8, 2026
 
 ### Calendar
-[events from idag]
+[events from mac-calendar]
 
-### Unread Emails (10)
+### Unread Emails
 [emails from mac-mail unread]
 
 ### Recent Messages
 [conversations from mac-messages]
 ```
 
-This command shows RAW DATA. For an AI-generated summary with action items, use /mac:briefing instead.
+This command shows RAW DATA. For an AI-generated summary with action items, use /work:briefing instead.
+
+## Canvas Output (Default)
+
+**Canvas output is enabled by default.** Unless `--no-canvas` flag is provided, ALWAYS write to canvas.
+
+After gathering data:
+
+1. Use the **Write tool** to write to `~/.claude/canvas/daily-<timestamp>.md`
+   - Example: `daily-2026-01-08-2245.md`
+   - Format: `daily-YYYY-MM-DD-HHmm.md`
+
+The PostToolUse hook will automatically launch mac-canvas GUI and select the latest session.
+
+DO NOT run mac-canvas manually or call /mac:canvas skill.

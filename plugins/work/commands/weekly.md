@@ -1,22 +1,27 @@
 ---
 description: Generate a weekly overview with insights
-allowed-tools: Bash, Read
+arguments:
+  - name: --no-canvas
+    description: Disable auto canvas output
+    required: false
+allowed-tools: Bash, Read, Write
 ---
 
 Generate a weekly summary covering the past 7 days and upcoming week.
 
-## Data Collection
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
-Run these commands to gather weekly data:
+## Data Collection - PARALLEL EXECUTION
+
+**Run ALL commands IN PARALLEL** (single message, multiple Bash calls):
 
 ```bash
-# This week's calendar (use idag with date range if supported, otherwise just today)
-idag
-
-# Recent emails (higher limit for weekly view)
+mac-calendar week
+```
+```bash
 mac-mail list --limit 50
-
-# Recent messages
+```
+```bash
 mac-messages list --limit 30
 ```
 
@@ -50,3 +55,17 @@ mac-messages list --limit 30
 - Focus on patterns and insights, not just raw data
 - Highlight anything that seems urgent or overdue
 - Suggest batch tasks that could be done together
+
+## Canvas Output (Default)
+
+**Canvas output is enabled by default.** Unless `--no-canvas` flag is provided, ALWAYS write to canvas.
+
+After generating the summary:
+
+1. Use the **Write tool** to write to `~/.claude/canvas/weekly-<timestamp>.md`
+   - Example: `weekly-2026-01-08-2245.md`
+   - Format: `weekly-YYYY-MM-DD-HHmm.md`
+
+The PostToolUse hook will automatically launch mac-canvas GUI and select the latest session.
+
+DO NOT run mac-canvas manually or call /mac:canvas skill.

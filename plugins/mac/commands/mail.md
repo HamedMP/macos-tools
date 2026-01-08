@@ -1,6 +1,10 @@
 ---
 description: List recent emails from Apple Mail
-allowed-tools: Bash
+arguments:
+  - name: --canvas
+    description: Send output to mac-canvas for interactive viewing
+    required: false
+allowed-tools: Bash, Write
 ---
 
 Run `mac-mail list` to show recent emails.
@@ -17,3 +21,32 @@ Options:
 - `--sort date|sender|subject` - sort order
 
 Present the emails in a clean format showing sender, subject, and date.
+
+## Canvas Output
+
+If the user includes `--canvas` flag:
+
+1. Run the command and capture the output
+2. Format as markdown with a table:
+```markdown
+# Mail
+
+| From | Subject | Date |
+|------|---------|------|
+| sender | subject line | date |
+```
+
+3. Write to canvas file:
+```bash
+mkdir -p ~/.claude/canvas
+cat > ~/.claude/canvas/mail-$(date +%Y%m%d-%H%M).md << 'EOF'
+[formatted mail output]
+EOF
+```
+
+4. Launch canvas if not running:
+```bash
+if ! pgrep -x mac-canvas > /dev/null; then
+    ${CLAUDE_PLUGIN_ROOT}/hooks/launch-canvas.sh
+fi
+```

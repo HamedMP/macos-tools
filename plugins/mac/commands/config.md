@@ -12,7 +12,7 @@ This command configures which data sources to include in /mac:daily and /mac:bri
 2. If exists, show current configuration and ask if user wants to change it.
 
 3. Use AskUserQuestion to let user select sources:
-   - Calendar (today's events via idag)
+   - Calendar (today's events via mac-calendar)
    - Mail (unread emails via mac-mail)
    - Messages (recent conversations via mac-messages)
    - Notes (recent notes via mac-notes)
