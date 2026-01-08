@@ -17,8 +17,9 @@ class HTMLRenderer {
             return calendarRenderer.renderLiveCalendar(view: view)
         }
 
-        // Static calendar from markdown
-        if rawMarkdown.contains("# Calendar") || rawMarkdown.contains("Schedule") {
+        // Static calendar from markdown - only match explicit calendar documents
+        // Must start with "# Calendar" heading, not just contain "Schedule" anywhere
+        if rawMarkdown.hasPrefix("# Calendar") || rawMarkdown.contains("\n# Calendar") {
             return renderCalendarView(document)
         }
 
