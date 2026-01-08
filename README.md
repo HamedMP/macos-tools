@@ -58,6 +58,8 @@ sudo cp .build/release/mac-* /usr/local/bin/
 ```bash
 mac-notes                      # List recent notes
 mac-notes search "meeting"     # Search notes
+mac-notes create "Title"       # Create new note
+mac-notes create "Title" -b "Body content"  # With body
 mac-notes folders              # List folders
 mac-notes export               # Export to markdown
 ```
@@ -113,6 +115,7 @@ claude plugin install mac@claude-macos-tools
 /mac:calendar        Today's events
 /mac:notes           Recent notes
 /mac:notes:search    Search notes
+/mac:notes:create    Create a new note
 /mac:messages        Recent conversations
 /mac:messages:search Search messages
 /mac:mail            Recent emails

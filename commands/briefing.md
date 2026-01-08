@@ -81,3 +81,16 @@ After gathering the data, generate a structured briefing:
 - Identify deadlines from dates mentioned in emails
 - Suggest priorities based on urgency (today's deadlines first)
 - If query provided, focus the summary on that topic
+
+## Save to Notes
+
+After presenting the briefing, ask the user if they want to save it to Apple Notes:
+
+"Would you like me to save this briefing to Apple Notes?"
+
+If yes, create the note:
+```bash
+mac-notes create "Daily Briefing - [Date]" --body "[briefing content]"
+```
+
+This allows the user to reference the briefing later on their phone or other devices.

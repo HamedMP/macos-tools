@@ -1,7 +1,7 @@
 {
   "name": "mac",
   "description": "Fast CLI tools for macOS - Notes, Mail, Messages, Calendar, daily briefings and productivity commands",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Hamed Mohammadpour",
     "url": "https://github.com/hamedmp"

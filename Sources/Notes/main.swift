@@ -6,7 +6,7 @@ struct MacNotes: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "mac-notes",
         abstract: "Fast CLI for Apple Notes",
-        subcommands: [List.self, Search.self, Folders.self, Export.self],
+        subcommands: [List.self, Search.self, Folders.self, Export.self, Create.self],
         defaultSubcommand: List.self
     )
 }
@@ -82,6 +82,52 @@ struct Folders: ParsableCommand {
         for folder in folders {
             let paddedName = folder.name.padding(toLength: maxNameLength + 2, withPad: " ", startingAt: 0)
             print("  \(paddedName) (\(folder.noteCount) notes)")
+        }
+    }
+}
+
+struct Create: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        abstract: "Create a new note"
+    )
+
+    @Argument(help: "Note title")
+    var title: String
+
+    @Option(name: .shortAndLong, help: "Note body/content")
+    var body: String?
+
+    @Option(name: .shortAndLong, help: "Folder name (default: Notes)")
+    var folder: String = "Notes"
+
+    func run() throws {
+        let noteBody = body ?? ""
+
+        let script = """
+        tell application "Notes"
+            tell folder "\(folder.replacingOccurrences(of: "\"", with: "\\\""))"
+                make new note with properties {name:"\(title.replacingOccurrences(of: "\"", with: "\\\""))", body:"\(noteBody.replacingOccurrences(of: "\"", with: "\\\""))"}
+            end tell
+        end tell
+        """
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+
+        let errorPipe = Pipe()
+        process.standardError = errorPipe
+
+        try process.run()
+        process.waitUntilExit()
+
+        if process.terminationStatus == 0 {
+            print("Created note '\(title)' in folder '\(folder)'")
+        } else {
+            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+            let errorOutput = String(data: errorData, encoding: .utf8) ?? "Unknown error"
+            print("Error creating note: \(errorOutput)")
+            throw ExitCode.failure
         }
     }
 }
