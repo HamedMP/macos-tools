@@ -1,0 +1,164 @@
+{
+  "configurations": [
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-notes",
+      "target": "mac-notes",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-notes"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-notes",
+      "target": "mac-notes",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-notes"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-messages",
+      "target": "mac-messages",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-messages"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-messages",
+      "target": "mac-messages",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-messages"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-mail",
+      "target": "mac-mail",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-mail"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-mail",
+      "target": "mac-mail",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-mail"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-contacts",
+      "target": "mac-contacts",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-contacts"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-contacts",
+      "target": "mac-contacts",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-contacts"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-focus",
+      "target": "mac-focus",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-focus"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-focus",
+      "target": "mac-focus",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-focus"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-music",
+      "target": "mac-music",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-music"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-music",
+      "target": "mac-music",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-music"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-calendar",
+      "target": "mac-calendar",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-calendar"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-calendar",
+      "target": "mac-calendar",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-calendar"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Debug mac-canvas",
+      "target": "mac-canvas",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug mac-canvas"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:macos-tools}",
+      "name": "Release mac-canvas",
+      "target": "mac-canvas",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release mac-canvas"
+    }
+  ]
+}
