@@ -6,9 +6,67 @@ struct MacNotes: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "mac-notes",
         abstract: "Fast CLI for Apple Notes",
-        subcommands: [List.self, Search.self, Folders.self, Export.self, Create.self],
+        subcommands: [List.self, Search.self, Folders.self, Export.self, Create.self, Open.self],
         defaultSubcommand: List.self
     )
+}
+
+struct Open: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        abstract: "Open a note in Apple Notes"
+    )
+
+    @Argument(help: "Note title (or partial title to search)")
+    var title: String
+
+    func run() throws {
+        let db = try NotesDatabase()
+        let notes = try db.searchNotes(query: title, limit: 10)
+
+        if notes.isEmpty {
+            print("No notes found matching '\(title)'.")
+            throw ExitCode.failure
+        }
+
+        // Use the first match
+        let note = notes[0]
+
+        if notes.count > 1 {
+            print("Found \(notes.count) notes matching '\(title)', opening: \(note.title)")
+        }
+
+        // Open note in Apple Notes using AppleScript
+        let escapedTitle = note.title.replacingOccurrences(of: "\"", with: "\\\"")
+        let escapedFolder = note.folder.replacingOccurrences(of: "\"", with: "\\\"")
+
+        let script = """
+        tell application "Notes"
+            activate
+            tell folder "\(escapedFolder)"
+                show note "\(escapedTitle)"
+            end tell
+        end tell
+        """
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+
+        let errorPipe = Pipe()
+        process.standardError = errorPipe
+
+        try process.run()
+        process.waitUntilExit()
+
+        if process.terminationStatus == 0 {
+            print("Opened '\(note.title)' in Apple Notes")
+        } else {
+            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+            let errorOutput = String(data: errorData, encoding: .utf8) ?? "Unknown error"
+            print("Error opening note: \(errorOutput)")
+            throw ExitCode.failure
+        }
+    }
 }
 
 struct List: ParsableCommand {
