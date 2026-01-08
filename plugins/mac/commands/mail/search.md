@@ -4,22 +4,24 @@ arguments:
   - name: query
     description: Search query
     required: true
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Search emails for the given query.
+Search emails in Apple Mail.
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
 ```bash
-mac-mail search "<query>" --limit 30
+mac-mail search "<query>" --limit 20
 ```
 
-Searches in subject, sender name, and email address.
+Present matching emails showing sender, subject, and date.
 
-Present results showing sender, subject, date, and read status.
+## Canvas output (default)
 
-## Canvas Output
+Unless `--no-canvas` flag is provided, use the **Write tool** to save to `~/.claude/canvas/mail-search-<timestamp>.md`.
 
-If `--canvas` flag is included, format as markdown table and write to `~/.claude/canvas/mail-search.md`, then launch canvas if not running.
+The PostToolUse hook will automatically launch mac-canvas GUI.

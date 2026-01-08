@@ -1,13 +1,21 @@
 ---
 description: List recent emails from Apple Mail
 arguments:
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Run `mac-mail list` to show recent emails.
+# Mail Command
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
+
+## Step 1: Get emails
+
+```bash
+mac-mail list --limit 20
+```
 
 Available commands:
 - `mac-mail` or `mac-mail list` - recent emails
@@ -18,16 +26,10 @@ Available commands:
 
 Options:
 - `--limit N` - limit results (default: 20)
-- `--sort date|sender|subject` - sort order
 
-Present the emails in a clean format showing sender, subject, and date.
+## Step 2: Format output
 
-## Canvas Output
-
-If the user includes `--canvas` flag:
-
-1. Run the command and capture the output
-2. Format as markdown with a table:
+Present emails in a markdown table:
 ```markdown
 # Mail
 
@@ -36,17 +38,17 @@ If the user includes `--canvas` flag:
 | sender | subject line | date |
 ```
 
-3. Write to canvas file:
-```bash
-mkdir -p ~/.claude/canvas
-cat > ~/.claude/canvas/mail-$(date +%Y%m%d-%H%M).md << 'EOF'
-[formatted mail output]
-EOF
-```
+## Step 3: Canvas output (default)
 
-4. Launch canvas if not running:
-```bash
-if ! pgrep -x mac-canvas > /dev/null; then
-    ${CLAUDE_PLUGIN_ROOT}/hooks/launch-canvas.sh
-fi
-```
+Unless `--no-canvas` flag is provided:
+
+1. Use the **Write tool** to save to `~/.claude/canvas/mail-<timestamp>.md`
+   - Example: `mail-2026-01-08-2245.md`
+   - Format: `mail-YYYY-MM-DD-HHmm.md`
+
+The PostToolUse hook will automatically launch mac-canvas GUI.
+
+DO NOT:
+- Call /mac:canvas skill
+- Run mac-canvas manually
+- Use any launch script

@@ -4,20 +4,24 @@ arguments:
   - name: query
     description: Search query
     required: true
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Search Apple Notes for the given query.
+Search Apple Notes for a keyword.
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
 ```bash
 mac-notes search "<query>" --limit 20
 ```
 
-Present results showing note title, folder, and snippet.
+Present matching notes showing title, folder, and preview.
 
-## Canvas Output
+## Canvas output (default)
 
-If `--canvas` flag is included, format as markdown and write to `~/.claude/canvas/notes-search.md`, then launch canvas if not running.
+Unless `--no-canvas` flag is provided, use the **Write tool** to save to `~/.claude/canvas/notes-search-<timestamp>.md`.
+
+The PostToolUse hook will automatically launch mac-canvas GUI.

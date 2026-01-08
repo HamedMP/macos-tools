@@ -1,20 +1,24 @@
 ---
 description: Show emails with attachments
 arguments:
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
 Show emails that have attachments.
 
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
+
 ```bash
 mac-mail attachments --limit 20
 ```
 
-Present emails showing sender, subject, date, and attachment indicator.
+Present emails showing sender, subject, and attachment info.
 
-## Canvas Output
+## Canvas output (default)
 
-If `--canvas` flag is included, format as markdown table and write to `~/.claude/canvas/mail-attachments.md`, then launch canvas if not running.
+Unless `--no-canvas` flag is provided, use the **Write tool** to save to `~/.claude/canvas/mail-attachments-<timestamp>.md`.
+
+The PostToolUse hook will automatically launch mac-canvas GUI.

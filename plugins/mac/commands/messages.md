@@ -1,13 +1,21 @@
 ---
 description: List recent iMessage conversations
 arguments:
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Run `mac-messages list` to show recent conversations.
+# Messages Command
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
+
+## Step 1: Get messages
+
+```bash
+mac-messages list --limit 20
+```
 
 Available commands:
 - `mac-messages` or `mac-messages list` - recent conversations
@@ -17,16 +25,10 @@ Available commands:
 
 Options:
 - `--limit N` - limit results (default: 20)
-- `--sort date|sender` - sort order
 
-Present the conversations in a clean format showing contact name/number and last message preview.
+## Step 2: Format output
 
-## Canvas Output
-
-If the user includes `--canvas` flag:
-
-1. Run the command and capture the output
-2. Format as markdown:
+Present conversations in a markdown table:
 ```markdown
 # Messages
 
@@ -35,17 +37,17 @@ If the user includes `--canvas` flag:
 | Name | Message preview... | 2:30 PM |
 ```
 
-3. Write to canvas file:
-```bash
-mkdir -p ~/.claude/canvas
-cat > ~/.claude/canvas/messages-$(date +%Y%m%d-%H%M).md << 'EOF'
-[formatted messages output]
-EOF
-```
+## Step 3: Canvas output (default)
 
-4. Launch canvas if not running:
-```bash
-if ! pgrep -x mac-canvas > /dev/null; then
-    ${CLAUDE_PLUGIN_ROOT}/hooks/launch-canvas.sh
-fi
-```
+Unless `--no-canvas` flag is provided:
+
+1. Use the **Write tool** to save to `~/.claude/canvas/messages-<timestamp>.md`
+   - Example: `messages-2026-01-08-2245.md`
+   - Format: `messages-YYYY-MM-DD-HHmm.md`
+
+The PostToolUse hook will automatically launch mac-canvas GUI.
+
+DO NOT:
+- Call /mac:canvas skill
+- Run mac-canvas manually
+- Use any launch script

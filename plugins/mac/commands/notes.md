@@ -4,50 +4,59 @@ arguments:
   - name: query
     description: Search query
     required: false
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Run `mac-notes` to list recent notes.
+# Notes Command
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
+
+## Step 1: Get notes
+
+```bash
+mac-notes list
+```
+
+Or with search:
+```bash
+mac-notes search "<query>"
+```
 
 Available commands:
 - `mac-notes` or `mac-notes list` - recent notes
 - `mac-notes search <query>` - search notes
 - `mac-notes folders` - list folders
 - `mac-notes create <title> --body <content>` - create a note
+- `mac-notes open <title>` - open note in Apple Notes
 
-Present the notes in a clean format.
+## Step 2: Format output
 
-## Canvas Output
-
-If the user includes `--canvas` flag:
-
-1. Run the command and capture the output
-2. Format as markdown:
+Present notes in markdown:
 ```markdown
 # Notes
 
 ## Note Title
-Folder: Notes | Modified: Jan 8, 2025
+Folder: Notes | Modified: Jan 8, 2026
 
 Preview of note content...
 
 ---
 ```
 
-3. Write to canvas file:
-```bash
-mkdir -p ~/.claude/canvas
-cat > ~/.claude/canvas/notes-$(date +%Y%m%d-%H%M).md << 'EOF'
-[formatted notes output]
-EOF
-```
+## Step 3: Canvas output (default)
 
-4. Launch canvas if not running:
-```bash
-if ! pgrep -x mac-canvas > /dev/null; then
-    ${CLAUDE_PLUGIN_ROOT}/hooks/launch-canvas.sh
-fi
-```
+Unless `--no-canvas` flag is provided:
+
+1. Use the **Write tool** to save to `~/.claude/canvas/notes-<timestamp>.md`
+   - Example: `notes-2026-01-08-2245.md`
+   - Format: `notes-YYYY-MM-DD-HHmm.md`
+
+The PostToolUse hook will automatically launch mac-canvas GUI.
+
+DO NOT:
+- Call /mac:canvas skill
+- Run mac-canvas manually
+- Use any launch script

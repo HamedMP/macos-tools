@@ -2,22 +2,26 @@
 description: Get message history with a specific contact
 arguments:
   - name: contact
-    description: Contact phone number, email, or name
+    description: Contact name or phone number
     required: true
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Get message history with a specific contact.
+Get message history with a contact.
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
 ```bash
 mac-messages history "<contact>" --limit 50
 ```
 
-Present the conversation in chronological order, clearly showing who sent each message (Me vs contact).
+Present conversation thread showing messages and timestamps.
 
-## Canvas Output
+## Canvas output (default)
 
-If `--canvas` flag is included, format as markdown conversation and write to `~/.claude/canvas/messages-history.md`, then launch canvas if not running.
+Unless `--no-canvas` flag is provided, use the **Write tool** to save to `~/.claude/canvas/messages-history-<timestamp>.md`.
+
+The PostToolUse hook will automatically launch mac-canvas GUI.

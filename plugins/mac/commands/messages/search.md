@@ -4,23 +4,24 @@ arguments:
   - name: query
     description: Search query
     required: true
-  - name: --canvas
-    description: Send output to mac-canvas for interactive viewing
+  - name: --no-canvas
+    description: Disable canvas output
     required: false
 allowed-tools: Bash, Write
 ---
 
-Search iMessages for the given query.
+Search iMessages for a keyword.
+
+**Canvas output is enabled by default.** Use `--no-canvas` to disable.
 
 ```bash
-mac-messages search "<query>" --limit 30
+mac-messages search "<query>" --limit 20
 ```
 
-Options:
-- `--sort date|sender` - sort results
+Present matching messages showing contact, message, and time.
 
-Present results showing date, sender, and message text.
+## Canvas output (default)
 
-## Canvas Output
+Unless `--no-canvas` flag is provided, use the **Write tool** to save to `~/.claude/canvas/messages-search-<timestamp>.md`.
 
-If `--canvas` flag is included, format as markdown table and write to `~/.claude/canvas/messages-search.md`, then launch canvas if not running.
+The PostToolUse hook will automatically launch mac-canvas GUI.
