@@ -300,6 +300,46 @@
 
 ---
 
+## Phase 9: Rich Content Widgets (NEW)
+
+### 9.1 Email Compose Preview
+- [x] Create polished email compose UI
+- [x] Parse email fields from markdown (To, Subject, Body)
+- [x] Display with avatar, action buttons
+- [x] Keyboard hints (E to send, Esc to cancel)
+
+### 9.2 Interactive Calendar Widget
+- [x] Create CalendarRenderer class
+- [x] Fetch real events from mac-calendar CLI
+- [x] Day view with 24-hour timeline
+- [x] Week view with 7-day grid
+- [x] Month view with calendar grid
+- [x] Color-coded events
+- [x] All-day events banner
+- [x] Event location display
+- [x] Click-to-add event dialog
+- [x] WebKit message handlers for Swift-JS communication
+- [x] Event creation via AppleScript
+- [ ] Calendar navigation (prev/next day/week/month)
+- [ ] Event editing/deletion
+
+### 9.3 Calendar Command Integration
+- [x] Add --widget flag to /mac:calendar command
+- [x] Add --week and --month flags
+- [x] Document calendar widget usage
+
+---
+
+## Recent Updates (Jan 9, 2026)
+
+- Refactored GUIApp.swift into 3 focused files (GUIApp, CanvasPanel, HTMLRenderer)
+- Added CalendarRenderer for live macOS Calendar integration
+- Interactive calendar with Day/Week/Month views
+- Click on time slots to add events via dialog
+- Email compose preview with styled UI
+- Fixed normal window behavior (not floating by default)
+- Fixed TUI save-to-notes title sanitization
+
 ## Recent Updates (Jan 8, 2026)
 
 - Added `mac-calendar` to macos-tools package (consolidated from idag)

@@ -277,10 +277,13 @@ When pressing `e`:
 - [x] Window close exits app properly
 - [x] Action bar (Copy, Save to Notes, Email, Open)
 - [x] App icon
-
-### In Progress
-
-- [ ] Normal window behavior (currently still floating)
+- [x] Normal window behavior (not floating by default)
+- [x] Email compose preview with styled UI
+- [x] Interactive calendar widget with real macOS Calendar data
+  - Day/Week/Month views
+  - Color-coded events
+  - Click-to-add event dialog
+  - WebKit message handlers for interactivity
 
 ### Not Started
 
@@ -288,6 +291,7 @@ When pressing `e`:
 - [ ] VoiceOver support
 - [ ] Checklist interactivity
 - [ ] Context menus in GUI
+- [ ] Calendar navigation (prev/next day/week/month)
 
 ## Success Metrics
 
