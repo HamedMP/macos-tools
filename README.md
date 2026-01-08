@@ -95,7 +95,7 @@ mac-music play/pause/next      # Control playback
 Install the plugin to use `/mac:*` commands in Claude Code:
 
 ```bash
-claude plugin add hamedmp/macos-tools
+claude plugin install mac@hamedmp/macos-tools
 ```
 
 ### Basic Commands
