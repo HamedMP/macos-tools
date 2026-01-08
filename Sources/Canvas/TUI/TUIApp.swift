@@ -122,19 +122,22 @@ class TUIApp {
         guard Date().timeIntervalSince(lastCanvasCheck) > 2 else { return }
         lastCanvasCheck = Date()
 
-        let previousCount = canvasList.count
-        let previousLatest = canvasList.first?.modified
+        let previousPaths = Set(canvasList.map { $0.path })
 
         refreshCanvasList()
 
-        // Auto-switch to new canvas if one appeared
-        if let latest = canvasList.first,
-           (canvasList.count > previousCount || latest.modified != previousLatest) {
-            if latest.path != filePath {
-                filePath = latest.path
+        let currentPaths = Set(canvasList.map { $0.path })
+        let newPaths = currentPaths.subtracting(previousPaths)
+
+        // Only auto-switch when a NEW canvas file appears
+        if let newPath = newPaths.first,
+           let newCanvas = canvasList.first(where: { $0.path == newPath }) {
+            // Only switch if the new canvas is the most recent
+            if canvasList.first?.path == newCanvas.path {
+                filePath = newCanvas.path
                 selectedCanvasIndex = 0
                 startWatching(filePath)
-                showStatus("Switched to: \(latest.name)")
+                showStatus("Switched to: \(newCanvas.name)")
             }
         }
     }
@@ -667,10 +670,23 @@ class TUIApp {
             return
         }
 
-        // Use mac-notes command: mac-notes create <title> --body <content>
+        // Write content to temp file to avoid command-line escaping issues
+        let tempFile = FileManager.default.temporaryDirectory.appendingPathComponent("canvas-note-\(UUID().uuidString).md")
+        do {
+            try content.write(to: tempFile, atomically: true, encoding: .utf8)
+        } catch {
+            showStatus("Failed to create temp file: \(error.localizedDescription)")
+            return
+        }
+
+        defer {
+            try? FileManager.default.removeItem(at: tempFile)
+        }
+
+        // Read content from file using shell
         let task = Process()
-        task.executableURL = URL(fileURLWithPath: notesPath)
-        task.arguments = ["create", title, "--body", content]
+        task.executableURL = URL(fileURLWithPath: "/bin/bash")
+        task.arguments = ["-c", "\(notesPath) create '\(title.replacingOccurrences(of: "'", with: "'\\''"))' --body \"$(cat '\(tempFile.path)')\""]
 
         do {
             try task.run()

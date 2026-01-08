@@ -106,20 +106,73 @@ mac-music play/pause/next      # Control playback
 
 ### Canvas (Interactive Viewer)
 
+`mac-canvas` provides a rich, interactive viewer for Claude Code outputs. It displays markdown content with live updates and supports two modes:
+
+#### TUI Mode (Terminal)
+
+Best for: Pre-opened in a separate terminal window. Updates appear instantly as Claude writes to canvas.
+
 ```bash
-mac-canvas watch               # Watch ~/.claude/canvas/ for changes
-mac-canvas watch file.md       # Watch specific file
-mac-canvas --gui               # Open in GUI mode (floating panel)
+# Open in a separate terminal BEFORE using Claude commands
+mac-canvas watch
 ```
 
-Keyboard shortcuts in TUI mode:
-- `j/k` - Scroll up/down
-- `Tab` - Jump to next section
-- `c` - Copy current section
-- `s` - Save to Apple Notes
-- `e` - Compose email
-- `[/]` - Focus sidebar/content
-- `?` - Show help
+Features:
+- Sidebar showing all canvas sessions
+- Live content updates
+- Full keyboard navigation
+- Actions: copy, save to Notes, email
+
+Keyboard shortcuts:
+| Key | Action |
+|-----|--------|
+| `j/k` or `↑/↓` | Scroll up/down |
+| `g/G` | Go to top/bottom |
+| `Tab` | Jump to next section |
+| `[` | Focus sidebar |
+| `]` | Focus content |
+| `Enter` | Open selected canvas (sidebar) |
+| `c` | Copy current section |
+| `C` | Copy all content |
+| `s` | Save to Apple Notes |
+| `e` | Compose email |
+| `o` | Open file in default app |
+| `/` | Search |
+| `?` | Show help |
+| `q` | Quit |
+
+#### GUI Mode (Native Window)
+
+Best for: Auto-launched by Claude commands. Opens automatically when content is written to canvas.
+
+```bash
+mac-canvas watch --gui         # Manual launch
+```
+
+The GUI launches automatically via PostToolUse hook when commands like `/mac:calendar`, `/mac:briefing`, `/mac:mail` write to `~/.claude/canvas/`.
+
+Features:
+- Native macOS window with WebKit rendering
+- Sidebar with all sessions
+- Action bar: Copy, Save to Notes, Email, Open
+- Auto-selects newest canvas
+- Remembers window position
+
+#### Usage with Claude Code
+
+All data commands (`/mac:mail`, `/mac:calendar`, `/mac:briefing`, etc.) write to canvas by default:
+
+1. **Automatic (recommended)**: Just run commands - GUI opens automatically
+   ```
+   /mac:briefing
+   ```
+
+2. **Pre-opened TUI**: Open `mac-canvas watch` in another terminal first, then run commands
+
+3. **Disable canvas**: Add `--no-canvas` flag
+   ```
+   /mac:mail --no-canvas
+   ```
 
 ## Claude Code Plugin
 
