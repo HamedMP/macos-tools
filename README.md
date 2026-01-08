@@ -5,6 +5,15 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/HamedMP/macos-tools/stargazers"><img src="https://img.shields.io/github/stars/HamedMP/macos-tools?style=flat&color=yellow" alt="Stars"></a>
+  <a href="https://github.com/HamedMP/macos-tools/releases"><img src="https://img.shields.io/github/v/release/HamedMP/macos-tools?style=flat&color=blue" alt="Release"></a>
+  <a href="https://github.com/HamedMP/macos-tools/blob/main/LICENSE"><img src="https://img.shields.io/github/license/HamedMP/macos-tools?style=flat" alt="License"></a>
+  <img src="https://img.shields.io/badge/platform-macOS%2013%2B-lightgrey?style=flat&logo=apple" alt="macOS 13+">
+  <img src="https://img.shields.io/badge/Swift-5.9-orange?style=flat&logo=swift" alt="Swift 5.9">
+  <img src="https://img.shields.io/badge/homebrew-hamedmp%2Ftap-brown?style=flat&logo=homebrew" alt="Homebrew">
+</p>
+
+<p align="center">
   <strong>Fast CLI tools for macOS Notes, Mail, Messages, and more.</strong><br>
   Direct SQLite access - 1000x faster than AppleScript.
 </p>
