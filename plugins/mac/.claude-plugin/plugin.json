@@ -1,0 +1,13 @@
+{
+  "name": "mac",
+  "description": "Fast CLI tools for macOS - Calendar, Mail, Messages, Notes, Contacts, Music",
+  "version": "1.3.0",
+  "author": {
+    "name": "Hamed Mohammadpour",
+    "url": "https://github.com/hamedmp"
+  },
+  "repository": "https://github.com/HamedMP/macos-tools",
+  "homepage": "https://github.com/HamedMP/macos-tools",
+  "license": "MIT",
+  "keywords": ["macos", "apple", "calendar", "mail", "messages", "notes", "contacts", "music", "cli"]
+}

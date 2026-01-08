@@ -5,23 +5,26 @@
     "email": "hamed@finna.ai"
   },
   "metadata": {
-    "description": "Fast CLI tools for macOS - Notes, Mail, Messages, Calendar with productivity commands",
-    "version": "1.2.1"
+    "description": "macOS system tools and AI-powered productivity assistants",
+    "version": "1.3.0",
+    "pluginRoot": "./plugins"
   },
   "plugins": [
     {
       "name": "mac",
-      "source": "./",
-      "description": "Fast CLI tools for macOS - Notes, Mail, Messages, Calendar, daily briefings and productivity commands",
-      "version": "1.2.1",
-      "author": {
-        "name": "Hamed Mohammadpour"
-      },
-      "homepage": "https://github.com/HamedMP/macos-tools",
-      "repository": "https://github.com/HamedMP/macos-tools",
-      "license": "MIT",
-      "keywords": ["macos", "apple", "calendar", "mail", "messages", "notes", "productivity"],
-      "category": "productivity"
+      "source": "mac",
+      "description": "Fast CLI tools for macOS - Calendar, Mail, Messages, Notes, Contacts, Music",
+      "version": "1.3.0",
+      "category": "system",
+      "keywords": ["macos", "apple", "calendar", "mail", "messages", "notes", "contacts"]
+    },
+    {
+      "name": "work",
+      "source": "work",
+      "description": "AI-powered productivity - Daily briefings, weekly reviews, work assistance",
+      "version": "1.0.0",
+      "category": "productivity",
+      "keywords": ["productivity", "briefing", "daily", "weekly", "assistant"]
     }
   ]
 }

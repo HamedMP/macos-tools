@@ -17,7 +17,7 @@ Gather recent/unread data from all sources:
 - Today's and tomorrow's calendar events
 - Recent messages (last 24 hours)
 
-### With Query (e.g., `/mac:briefing receipts`)
+### With Query (e.g., `/work:briefing receipts`)
 Search ALL sources for the topic, regardless of date:
 - `mac-mail search "<query>" --limit 20`
 - `mac-messages search "<query>" --limit 20`

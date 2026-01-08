@@ -1,0 +1,13 @@
+{
+  "name": "work",
+  "description": "AI-powered productivity tools - Daily briefings, weekly reviews, and work assistance",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hamed Mohammadpour",
+    "url": "https://github.com/hamedmp"
+  },
+  "repository": "https://github.com/HamedMP/macos-tools",
+  "homepage": "https://github.com/HamedMP/macos-tools",
+  "license": "MIT",
+  "keywords": ["productivity", "briefing", "daily", "weekly", "work", "assistant"]
+}
