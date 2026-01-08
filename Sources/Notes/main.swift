@@ -138,7 +138,40 @@ struct Create: ParsableCommand {
 }
 
 func markdownToHtml(_ markdown: String) -> String {
-    var html = markdown
+    var lines = markdown.components(separatedBy: "\n")
+    var result: [String] = []
+    var inTable = false
+    var tableRows: [String] = []
+
+    for line in lines {
+        // Check if line is a table row
+        if line.hasPrefix("|") && line.hasSuffix("|") {
+            // Skip separator rows (|---|---|)
+            if line.contains("---") {
+                continue
+            }
+            if !inTable {
+                inTable = true
+                tableRows = []
+            }
+            tableRows.append(line)
+        } else {
+            // End of table
+            if inTable {
+                result.append(convertTableToHtml(tableRows))
+                inTable = false
+                tableRows = []
+            }
+            result.append(line)
+        }
+    }
+
+    // Handle table at end of content
+    if inTable {
+        result.append(convertTableToHtml(tableRows))
+    }
+
+    var html = result.joined(separator: "\n")
 
     // Headers
     html = html.replacingOccurrences(of: "(?m)^### (.+)$", with: "<h3>$1</h3>", options: .regularExpression)
@@ -149,9 +182,9 @@ func markdownToHtml(_ markdown: String) -> String {
     html = html.replacingOccurrences(of: "\\*\\*(.+?)\\*\\*", with: "<b>$1</b>", options: .regularExpression)
     html = html.replacingOccurrences(of: "\\*(.+?)\\*", with: "<i>$1</i>", options: .regularExpression)
 
-    // Checkboxes
-    html = html.replacingOccurrences(of: "(?m)^- \\[ \\] (.+)$", with: "<div>☐ $1</div>", options: .regularExpression)
-    html = html.replacingOccurrences(of: "(?m)^- \\[x\\] (.+)$", with: "<div>☑ $1</div>", options: .regularExpression)
+    // Checkboxes - Apple Notes native checklist format
+    html = html.replacingOccurrences(of: "(?m)^- \\[ \\] (.+)$", with: "<ul class=\"Apple-todo-list\"><li class=\"Apple-todo-item\">$1</li></ul>", options: .regularExpression)
+    html = html.replacingOccurrences(of: "(?m)^- \\[x\\] (.+)$", with: "<ul class=\"Apple-todo-list\"><li class=\"Apple-todo-item Apple-todo-done\">$1</li></ul>", options: .regularExpression)
 
     // Unordered lists
     html = html.replacingOccurrences(of: "(?m)^- (.+)$", with: "<div>• $1</div>", options: .regularExpression)
@@ -159,10 +192,34 @@ func markdownToHtml(_ markdown: String) -> String {
     // Horizontal rule
     html = html.replacingOccurrences(of: "(?m)^---+$", with: "<hr>", options: .regularExpression)
 
-    // Line breaks
+    // Line breaks (but not inside tables)
     html = html.replacingOccurrences(of: "\n\n", with: "<br><br>")
     html = html.replacingOccurrences(of: "\n", with: "<br>")
 
+    return html
+}
+
+func convertTableToHtml(_ rows: [String]) -> String {
+    var html = "<table border=\"1\" cellpadding=\"5\" cellspacing=\"0\" style=\"border-collapse: collapse;\">"
+
+    for (index, row) in rows.enumerated() {
+        let cells = row
+            .trimmingCharacters(in: CharacterSet(charactersIn: "|"))
+            .components(separatedBy: "|")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+
+        html += "<tr>"
+        for cell in cells {
+            if index == 0 {
+                html += "<th style=\"background-color: #f0f0f0; font-weight: bold;\">\(cell)</th>"
+            } else {
+                html += "<td>\(cell)</td>"
+            }
+        }
+        html += "</tr>"
+    }
+
+    html += "</table>"
     return html
 }
 
