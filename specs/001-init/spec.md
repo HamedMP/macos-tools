@@ -22,6 +22,15 @@ SQLite-based CLI tools that directly query macOS app databases, providing:
 
 ### Core CLI Tools
 
+#### mac-calendar
+| Command | Description |
+|---------|-------------|
+| `mac-calendar [today]` | Today's events (default) |
+| `mac-calendar tomorrow` | Tomorrow's events |
+| `mac-calendar week` | Next 7 days |
+| `mac-calendar month` | Next 30 days |
+| `mac-calendar --json` | Output as JSON |
+
 #### mac-notes
 | Command | Description |
 |---------|-------------|
@@ -147,12 +156,12 @@ Default configuration includes: calendar, mail, messages.
 
 ## Database Locations
 
-| App | Database Path |
+| App | Access Method |
 |-----|---------------|
+| Calendar | EventKit framework (native API) |
 | Notes | `~/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite` |
 | Messages | `~/Library/Messages/chat.db` |
 | Mail | `~/Library/Mail/V*/MailData/Envelope Index` |
-| Calendar | EventKit framework (not SQLite) |
 
 ## Distribution
 
