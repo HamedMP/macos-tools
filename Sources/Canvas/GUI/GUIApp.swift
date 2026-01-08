@@ -462,8 +462,15 @@ class CanvasPanel: NSWindow {
         }
     }
 
+    private var lastRenderedMarkdown: String = ""
+
     func updateContent(_ html: String, markdown: String = "") {
+        // Only reload if content actually changed
+        guard markdown != lastRenderedMarkdown else { return }
+
         self.currentMarkdown = markdown
+        self.lastRenderedMarkdown = markdown
+
         DispatchQueue.main.async {
             self.webView.loadHTMLString(html, baseURL: nil)
         }

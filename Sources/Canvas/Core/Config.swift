@@ -18,7 +18,7 @@ struct CanvasConfig: Codable {
         var windowWidth: Int = 600
         var windowHeight: Int = 800
         var opacity: Double = 1.0
-        var alwaysOnTop: Bool = true
+        var alwaysOnTop: Bool = false
     }
 
     static var canvasDirectory: URL {
