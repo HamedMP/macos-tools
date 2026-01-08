@@ -103,19 +103,24 @@ class GUIApp: NSObject {
     }
 
     private func checkForNewCanvases() {
-        let previousCount = canvasList.count
-        let previousLatest = canvasList.first?.modified
+        let previousPaths = Set(canvasList.map { $0.path })
 
         refreshCanvasList()
 
-        // Update panel's canvas list
-        panel?.updateCanvasList(canvasList)
+        let currentPaths = Set(canvasList.map { $0.path })
+        let newPaths = currentPaths.subtracting(previousPaths)
 
-        // Auto-switch to new canvas if one appeared
-        if let latest = canvasList.first,
-           (canvasList.count > previousCount || latest.modified != previousLatest) {
-            if latest.path != filePath {
-                switchToCanvas(path: latest.path)
+        // Only update panel if list changed
+        if previousPaths != currentPaths {
+            panel?.updateCanvasList(canvasList)
+        }
+
+        // Only auto-switch when a NEW canvas file appears
+        if let newPath = newPaths.first,
+           let newCanvas = canvasList.first(where: { $0.path == newPath }) {
+            // Only switch if the new canvas is the most recent
+            if canvasList.first?.path == newCanvas.path {
+                switchToCanvas(path: newCanvas.path)
             }
         }
     }
