@@ -16,6 +16,7 @@ class CanvasPanel: NSWindow {
     private var onSelect: ((String) -> Void)?
     private var selectedPath: String?
     private var currentMarkdown: String = ""
+    private var currentCalendarView: String = "day"
 
     init(canvasList: [GUIApp.CanvasFile], onSelect: @escaping (String) -> Void) {
         self.canvasList = canvasList
@@ -280,6 +281,12 @@ class CanvasPanel: NSWindow {
         objc_setAssociatedObject(self, &AssociatedKeys.tableView, tableView, .OBJC_ASSOCIATION_RETAIN)
 
         let configuration = WKWebViewConfiguration()
+        let contentController = WKUserContentController()
+        contentController.add(CalendarMessageHandler(panel: self), name: "createEvent")
+        contentController.add(CalendarMessageHandler(panel: self), name: "switchView")
+        contentController.add(CalendarMessageHandler(panel: self), name: "navigate")
+        configuration.userContentController = contentController
+
         webView = WKWebView(frame: NSRect(x: 0, y: 0, width: 600, height: contentView!.bounds.height), configuration: configuration)
         webView.autoresizingMask = [.width, .height]
 
@@ -430,6 +437,124 @@ extension CanvasPanel: NSTableViewDelegate, NSTableViewDataSource {
             let canvas = canvasList[row]
             selectedPath = canvas.path
             onSelect?(canvas.path)
+        }
+    }
+
+    // MARK: - Calendar Actions
+
+    func handleCalendarAction(_ action: String, data: [String: Any]) {
+        switch action {
+        case "createEvent":
+            createCalendarEvent(data)
+        case "switchView":
+            if let view = data["view"] as? String {
+                switchCalendarView(to: view)
+            }
+        case "navigate":
+            if let direction = data["direction"] as? Int {
+                navigateCalendar(direction: direction)
+            }
+        default:
+            break
+        }
+    }
+
+    private func createCalendarEvent(_ data: [String: Any]) {
+        guard let title = data["title"] as? String,
+              let start = data["start"] as? String,
+              let end = data["end"] as? String else {
+            return
+        }
+
+        let location = data["location"] as? String ?? ""
+
+        // Create event using AppleScript
+        let today = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
+        let script = """
+        tell application "Calendar"
+            tell calendar "Calendar"
+                set startDate to date "\(today) \(start)"
+                set endDate to date "\(today) \(end)"
+                make new event with properties {summary:"\(title)", start date:startDate, end date:endDate, location:"\(location)"}
+            end tell
+        end tell
+        """
+
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        task.arguments = ["-e", script]
+
+        do {
+            try task.run()
+            task.waitUntilExit()
+
+            if task.terminationStatus == 0 {
+                // Refresh the calendar view
+                refreshCurrentCalendarView()
+
+                let alert = NSAlert()
+                alert.messageText = "Event Created"
+                alert.informativeText = "\(title) at \(start) - \(end)"
+                alert.alertStyle = .informational
+                alert.runModal()
+            }
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "Failed to create event"
+            alert.informativeText = error.localizedDescription
+            alert.alertStyle = .warning
+            alert.runModal()
+        }
+    }
+
+    private func switchCalendarView(to view: String) {
+        currentCalendarView = view
+        refreshCurrentCalendarView()
+    }
+
+    private func navigateCalendar(direction: Int) {
+        // For now, just refresh - full navigation would require date tracking
+        refreshCurrentCalendarView()
+    }
+
+    private func refreshCurrentCalendarView() {
+        // Trigger reload with the current view
+        let calendarMarkdown = "<!-- calendar:live:\(currentCalendarView) -->"
+        let parser = MarkdownParser()
+        let doc = parser.parse(calendarMarkdown)
+        let renderer = HTMLRenderer()
+        let html = renderer.render(doc)
+        updateContent(html, markdown: calendarMarkdown)
+    }
+}
+
+// MARK: - Calendar Message Handler
+
+class CalendarMessageHandler: NSObject, WKScriptMessageHandler {
+    weak var panel: CanvasPanel?
+
+    init(panel: CanvasPanel) {
+        self.panel = panel
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        guard let panel = panel else { return }
+
+        switch message.name {
+        case "createEvent":
+            if let body = message.body as? [String: Any] {
+                panel.handleCalendarAction("createEvent", data: body)
+            }
+        case "switchView":
+            if let view = message.body as? String {
+                panel.handleCalendarAction("switchView", data: ["view": view])
+            }
+        case "navigate":
+            if let direction = message.body as? Int {
+                panel.handleCalendarAction("navigate", data: ["direction": direction])
+            }
+        default:
+            break
         }
     }
 }

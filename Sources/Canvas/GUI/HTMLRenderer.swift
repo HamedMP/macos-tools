@@ -1,6 +1,8 @@
 import Foundation
 
 class HTMLRenderer {
+    private let calendarRenderer = CalendarRenderer()
+
     func render(_ document: ContentDocument) -> String {
         let rawMarkdown = document.rawMarkdown
 
@@ -9,6 +11,13 @@ class HTMLRenderer {
             return renderEmailPreview(document)
         }
 
+        // Live calendar with real data
+        if rawMarkdown.contains("<!-- calendar:live") {
+            let view = extractCalendarView(from: rawMarkdown)
+            return calendarRenderer.renderLiveCalendar(view: view)
+        }
+
+        // Static calendar from markdown
         if rawMarkdown.contains("# Calendar") || rawMarkdown.contains("Schedule") {
             return renderCalendarView(document)
         }
@@ -19,6 +28,15 @@ class HTMLRenderer {
         }
 
         return wrapWithStyles(html)
+    }
+
+    private func extractCalendarView(from markdown: String) -> String {
+        if markdown.contains("calendar:live:week") {
+            return "week"
+        } else if markdown.contains("calendar:live:month") {
+            return "month"
+        }
+        return "day"
     }
 
     // MARK: - Email Preview
