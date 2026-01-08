@@ -94,7 +94,7 @@ struct Create: ParsableCommand {
     @Argument(help: "Note title")
     var title: String
 
-    @Option(name: .shortAndLong, help: "Note body/content")
+    @Option(name: .shortAndLong, help: "Note body/content (supports markdown)")
     var body: String?
 
     @Option(name: .shortAndLong, help: "Folder name (default: Notes)")
@@ -102,11 +102,16 @@ struct Create: ParsableCommand {
 
     func run() throws {
         let noteBody = body ?? ""
+        let htmlBody = markdownToHtml(noteBody)
+
+        let escapedBody = htmlBody
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "\"", with: "\\\"")
 
         let script = """
         tell application "Notes"
             tell folder "\(folder.replacingOccurrences(of: "\"", with: "\\\""))"
-                make new note with properties {name:"\(title.replacingOccurrences(of: "\"", with: "\\\""))", body:"\(noteBody.replacingOccurrences(of: "\"", with: "\\\""))"}
+                make new note with properties {name:"\(title.replacingOccurrences(of: "\"", with: "\\\""))", body:"\(escapedBody)"}
             end tell
         end tell
         """
@@ -130,6 +135,35 @@ struct Create: ParsableCommand {
             throw ExitCode.failure
         }
     }
+}
+
+func markdownToHtml(_ markdown: String) -> String {
+    var html = markdown
+
+    // Headers
+    html = html.replacingOccurrences(of: "(?m)^### (.+)$", with: "<h3>$1</h3>", options: .regularExpression)
+    html = html.replacingOccurrences(of: "(?m)^## (.+)$", with: "<h2>$1</h2>", options: .regularExpression)
+    html = html.replacingOccurrences(of: "(?m)^# (.+)$", with: "<h1>$1</h1>", options: .regularExpression)
+
+    // Bold and italic
+    html = html.replacingOccurrences(of: "\\*\\*(.+?)\\*\\*", with: "<b>$1</b>", options: .regularExpression)
+    html = html.replacingOccurrences(of: "\\*(.+?)\\*", with: "<i>$1</i>", options: .regularExpression)
+
+    // Checkboxes
+    html = html.replacingOccurrences(of: "(?m)^- \\[ \\] (.+)$", with: "<div>☐ $1</div>", options: .regularExpression)
+    html = html.replacingOccurrences(of: "(?m)^- \\[x\\] (.+)$", with: "<div>☑ $1</div>", options: .regularExpression)
+
+    // Unordered lists
+    html = html.replacingOccurrences(of: "(?m)^- (.+)$", with: "<div>• $1</div>", options: .regularExpression)
+
+    // Horizontal rule
+    html = html.replacingOccurrences(of: "(?m)^---+$", with: "<hr>", options: .regularExpression)
+
+    // Line breaks
+    html = html.replacingOccurrences(of: "\n\n", with: "<br><br>")
+    html = html.replacingOccurrences(of: "\n", with: "<br>")
+
+    return html
 }
 
 struct Export: ParsableCommand {
