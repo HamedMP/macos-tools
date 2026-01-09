@@ -20,23 +20,29 @@ When creating a new release:
    - `plugins/work/.claude-plugin/plugin.json`
    - `.claude-plugin/marketplace.json`
 
-2. **Commit and tag**:
+2. **Commit and push tag**:
    ```bash
-   git add -A && git commit -m "Bump to vX.Y.Z"
-   git tag -a vX.Y.Z -m "Release description"
+   git add -A && git commit -m "Release vX.Y.Z"
+   git tag -a vX.Y.Z -m "vX.Y.Z"
    git push origin main --tags
    ```
 
-3. **Update Homebrew formula** (in homebrew-tap repo):
-   ```bash
-   # Get SHA256 of new release
-   curl -sL https://github.com/HamedMP/macos-tools/archive/refs/tags/vX.Y.Z.tar.gz | shasum -a 256
+3. **Wait for GitHub Actions** - The workflow will:
+   - Build arm64 binaries (macos-14 runner)
+   - Build x86_64 binaries (macos-13 runner)
+   - Create release with both zips attached
 
-   # Update Formula/macos-tools.rb with new version and SHA256
+4. **Update Homebrew formula** (in homebrew-tap repo):
+   ```bash
+   # Wait for release to be created, then get SHA256
+   curl -sL https://github.com/HamedMP/macos-tools/releases/download/vX.Y.Z/macos-tools-vX.Y.Z-arm64.zip | shasum -a 256
+
+   # Update Formula/macos-tools.rb:
+   # - url to new version
+   # - sha256 hash
+   # - version number
    # Commit and push
    ```
-
-4. GitHub Actions will automatically create the release
 
 ## Project Structure
 
