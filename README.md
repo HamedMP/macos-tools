@@ -19,11 +19,25 @@
 </p>
 
 <p align="center">
-  <a href="#installation">Installation</a> |
+  <a href="#quick-start">Quick Start</a> |
   <a href="#cli-tools">CLI Tools</a> |
   <a href="#claude-code-plugin">Plugin</a> |
-  <a href="#productivity-commands">Productivity</a>
+  <a href="#canvas-interactive-viewer">Canvas</a>
 </p>
+
+## Quick Start
+
+```bash
+# Install CLI tools
+brew install hamedmp/tap/macos-tools
+
+# Install Claude Code plugins
+claude plugin marketplace add hamedmp/macos-tools
+claude plugin install mac@claude-macos-tools
+claude plugin install work@claude-macos-tools
+```
+
+Then try: `/mac:briefing` or `/mac:calendar --widget`
 
 ## Installation
 
