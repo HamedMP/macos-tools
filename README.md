@@ -25,11 +25,6 @@
   <a href="#productivity-commands">Productivity</a>
 </p>
 
-<!-- <p align="center">
-  <img src="assets/mac-canvas-gui-brief.png" alt="Daily Briefing in Canvas" width="48%">
-  <img src="assets/mac-canvas-gui-calendar.png" alt="Interactive Calendar Widget" width="48%">
-</p> -->
-
 ## Installation
 
 ### Homebrew (Recommended)
@@ -169,6 +164,11 @@ Best for: Auto-launched by Claude commands. Opens automatically when content is 
 ```bash
 mac-canvas watch --gui         # Manual launch
 ```
+
+<p align="center">
+  <img src="assets/mac-canvas-gui-brief.png" alt="Daily Briefing in Canvas" width="88%">
+  <img src="assets/mac-canvas-gui-calendar.png" alt="Interactive Calendar Widget" width="100%">
+</p>
 
 The GUI launches automatically via PostToolUse hook when commands like `/mac:calendar`, `/mac:briefing`, `/mac:mail` write to `~/.claude/canvas/`.
 
