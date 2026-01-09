@@ -119,6 +119,10 @@ mac-music play/pause/next      # Control playback
 
 `mac-canvas` provides a rich, interactive viewer for Claude Code outputs. It displays markdown content with live updates and supports two modes:
 
+<p align="center">
+  <img src="assets/canvas-tui-briefing.png" alt="Canvas TUI Briefing" width="70%">
+</p>
+
 #### TUI Mode (Terminal)
 
 Best for: Pre-opened in a separate terminal window. Updates appear instantly as Claude writes to canvas.
@@ -151,6 +155,10 @@ Keyboard shortcuts:
 | `/` | Search |
 | `?` | Show help |
 | `q` | Quit |
+
+<p align="center">
+  <img src="assets/canvas-help.png" alt="Canvas Help Screen" width="60%">
+</p>
 
 #### GUI Mode (Native Window)
 
