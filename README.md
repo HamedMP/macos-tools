@@ -25,6 +25,11 @@
   <a href="#productivity-commands">Productivity</a>
 </p>
 
+<p align="center">
+  <img src="assets/mac-canvas-gui-brief.png" alt="Daily Briefing in Canvas" width="48%">
+  <img src="assets/mac-canvas-gui-calendar.png" alt="Interactive Calendar Widget" width="48%">
+</p>
+
 ## Installation
 
 ### Homebrew (Recommended)
@@ -195,6 +200,11 @@ Install the plugin to use `/mac:*` commands in Claude Code.
 claude plugin marketplace add hamedmp/macos-tools
 claude plugin install mac@claude-macos-tools
 ```
+
+<p align="center">
+  <img src="assets/mac-commands.png" alt="Mac Commands" width="48%">
+  <img src="assets/work-commands.png" alt="Work Commands" width="48%">
+</p>
 
 ### Basic Commands
 
