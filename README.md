@@ -29,11 +29,17 @@
 
 ### Homebrew (Recommended)
 
+Pre-built binaries - no Xcode or Swift required:
+
 ```bash
 brew install hamedmp/tap/macos-tools
 ```
 
-### From Source
+> **Note:** Currently supports Apple Silicon Macs only. Intel Mac support coming soon.
+
+### From Source (Development)
+
+Requires Xcode/Swift 5.9+:
 
 ```bash
 git clone https://github.com/hamedmp/macos-tools.git
@@ -249,7 +255,7 @@ Grant **Calendar Access** for mac-calendar (prompted automatically on first use)
 ## Requirements
 
 - macOS 13.0+ (Ventura)
-- Swift 5.9+
+- Apple Silicon Mac (Intel support coming soon)
 - Full Disk Access (for Messages/Mail)
 
 ## License
