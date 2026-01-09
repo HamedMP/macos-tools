@@ -25,10 +25,10 @@
   <a href="#productivity-commands">Productivity</a>
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <img src="assets/mac-canvas-gui-brief.png" alt="Daily Briefing in Canvas" width="48%">
   <img src="assets/mac-canvas-gui-calendar.png" alt="Interactive Calendar Widget" width="48%">
-</p>
+</p> -->
 
 ## Installation
 
@@ -55,16 +55,16 @@ sudo cp .build/release/mac-* /usr/local/bin/
 
 ## CLI Tools
 
-| Tool | Description | Performance |
-|------|-------------|-------------|
-| `mac-calendar` | Query Calendar events | 15ms |
-| `mac-notes` | Search Apple Notes | 14ms |
-| `mac-messages` | Search iMessages | 17ms |
-| `mac-mail` | Search Apple Mail | 22ms |
-| `mac-contacts` | Search Contacts | - |
-| `mac-focus` | Focus mode control | - |
-| `mac-music` | Apple Music / Spotify | - |
-| `mac-canvas` | Interactive markdown viewer | - |
+| Tool           | Description                 | Performance |
+| -------------- | --------------------------- | ----------- |
+| `mac-calendar` | Query Calendar events       | 15ms        |
+| `mac-notes`    | Search Apple Notes          | 14ms        |
+| `mac-messages` | Search iMessages            | 17ms        |
+| `mac-mail`     | Search Apple Mail           | 22ms        |
+| `mac-contacts` | Search Contacts             | -           |
+| `mac-focus`    | Focus mode control          | -           |
+| `mac-music`    | Apple Music / Spotify       | -           |
+| `mac-canvas`   | Interactive markdown viewer | -           |
 
 ### Calendar
 
@@ -133,28 +133,30 @@ mac-canvas watch
 ```
 
 Features:
+
 - Sidebar showing all canvas sessions
 - Live content updates
 - Full keyboard navigation
 - Actions: copy, save to Notes, email
 
 Keyboard shortcuts:
-| Key | Action |
-|-----|--------|
-| `j/k` or `↑/↓` | Scroll up/down |
-| `g/G` | Go to top/bottom |
-| `Tab` | Jump to next section |
-| `[` | Focus sidebar |
-| `]` | Focus content |
-| `Enter` | Open selected canvas (sidebar) |
-| `c` | Copy current section |
-| `C` | Copy all content |
-| `s` | Save to Apple Notes |
-| `e` | Compose email |
-| `o` | Open file in default app |
-| `/` | Search |
-| `?` | Show help |
-| `q` | Quit |
+
+| Key            | Action                         |
+| -------------- | ------------------------------ |
+| `j/k` or `↑/↓` | Scroll up/down                 |
+| `g/G`          | Go to top/bottom               |
+| `Tab`          | Jump to next section           |
+| `[`            | Focus sidebar                  |
+| `]`            | Focus content                  |
+| `Enter`        | Open selected canvas (sidebar) |
+| `c`            | Copy current section           |
+| `C`            | Copy all content               |
+| `s`            | Save to Apple Notes            |
+| `e`            | Compose email                  |
+| `o`            | Open file in default app       |
+| `/`            | Search                         |
+| `?`            | Show help                      |
+| `q`            | Quit                           |
 
 <p align="center">
   <img src="assets/canvas-help.png" alt="Canvas Help Screen" width="60%">
@@ -171,6 +173,7 @@ mac-canvas watch --gui         # Manual launch
 The GUI launches automatically via PostToolUse hook when commands like `/mac:calendar`, `/mac:briefing`, `/mac:mail` write to `~/.claude/canvas/`.
 
 Features:
+
 - Native macOS window with WebKit rendering
 - Sidebar with all sessions
 - Action bar: Copy, Save to Notes, Email, Open
@@ -182,6 +185,7 @@ Features:
 All data commands (`/mac:mail`, `/mac:calendar`, `/mac:briefing`, etc.) write to canvas by default:
 
 1. **Automatic (recommended)**: Just run commands - GUI opens automatically
+
    ```
    /mac:briefing
    ```
@@ -189,30 +193,33 @@ All data commands (`/mac:mail`, `/mac:calendar`, `/mac:briefing`, etc.) write to
 2. **Pre-opened TUI**: Open `mac-canvas watch` in another terminal first, then run commands
 
 3. **Disable canvas**: Add `--no-canvas` flag
+
    ```
    /mac:mail --no-canvas
    ```
 
 ## Claude Code Plugin
 
+<p align="center">
+  <img src="assets/mac-commands.png" alt="Mac Commands" >
+  <img src="assets/work-commands.png" alt="Work Commands">
+</p>
+
 Install the plugin to use `/mac:*` commands in Claude Code.
 
 **Option 1: Via `/plugin` command (recommended)**
+
 ```
 /plugin marketplace add hamedmp/macos-tools
 /plugin install mac@claude-macos-tools
 ```
 
 **Option 2: Via CLI**
+
 ```bash
 claude plugin marketplace add hamedmp/macos-tools
 claude plugin install mac@claude-macos-tools
 ```
-
-<p align="center">
-  <img src="assets/mac-commands.png" alt="Mac Commands" width="48%">
-  <img src="assets/work-commands.png" alt="Work Commands" width="48%">
-</p>
 
 ### Basic Commands
 
@@ -243,20 +250,24 @@ claude plugin install mac@claude-macos-tools
 #### `/mac:briefing` - AI Daily Summary
 
 Default behavior - summarizes your day:
+
 ```
 /mac:briefing
 ```
+
 - Unread emails
 - Today's calendar
 - Recent messages
 
 Focus on specific topic:
+
 ```
 /mac:briefing receipts        # Everything about receipts
 /mac:briefing "project alpha" # Project-specific summary
 ```
 
 Output includes:
+
 - Executive summary
 - Action items
 - Key deadlines
